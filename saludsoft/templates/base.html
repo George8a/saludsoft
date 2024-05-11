@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {% endblock %}- SaludSoft</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/all.min.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/styles.css')}}">
+
+</head>
+ 
+
+
+
+<body>
+    {% for message in get_flashed_messages() %}
+    <div class="container mt-3">
+      <div class="row">
+        <div class="col-md-6 mx-auto">
+          <div class="alert {% block message %} alert-danger {% endblock %}" role="alert">
+            {{message}}           
+    
+          </div>
+      </div>
+    </div>
+    </div> 
+    {% endfor %} 
+  
+    <!--Contenido de la pagina-->
+    {% block content %}
+   
+
+
+    {% endblock %}
+
+  
+
+
+    <script src="{{ url_for('static', filename = 'js/bootstrap.bundle.min.js')}}"></script>
+</body>
+</html>
