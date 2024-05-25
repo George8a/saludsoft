@@ -43,29 +43,31 @@ def register():
     return render_template('auth/register.html')
 
 
-@bp.route('/', methods=['POST', 'GET'])
-def index(): 
 
-    if request.method == 'POST':
-        email = request.form.get('email')
-        password = request.form.get('password')
+def ingresar(password, email): 
+
+    
+    email = email
+    password = password
                 
                 #validaciones de datos
-        error = None
-        user = User.query.filter_by(email = email).first()
+    error = None
+    user = User.query.filter_by(email = email).first()
                 
-        if user == None or not check_password_hash(user.password, password):
+    if user == None or not check_password_hash(user.password, password):
                     
-            error = 'correo o contraseña incorrecta'
-        elif user.estado == False:
+        error = 'correo o contraseña incorrecta'
+    elif user.estado == False:
             
-            error = 'El usuario se encuentra inactivo, validar con el administrador'
-                        
-        elif error is None:
-            session.clear()
-            session['user_id'] = user.id
-            return redirect(url_for('auth.menu'))
-        flash(error)
+       error = 'El usuario se encuentra inactivo, validar con el administrador'                        
+    elif error is None:
+        
+        
+        session.clear()
+        session['user_id'] = user.id
+        return redirect(url_for('auth.menu'))
+        #print('ingreso exitoso')
+    flash(error)
     return render_template('index.html')
 
 
@@ -73,6 +75,13 @@ def index():
 @login_required
 def menu():
     return render_template('auth/menu.html')
+
+
+
+@bp.route('/adminusuario')
+@login_required
+def adminUsuario():
+    return render_template('auth/admin.html')
             
     
         

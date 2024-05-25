@@ -1,6 +1,8 @@
-from flask import Flask, render_template, request, flash, url_for, redirect, session, g
+from flask import Flask, Blueprint, render_template, request, flash, url_for, redirect, session, g
+from werkzeug.security import generate_password_hash, check_password_hash
 
 from flask_sqlalchemy import SQLAlchemy
+
 
 
 
@@ -21,11 +23,17 @@ def create_app():
     
                       
         
-    # @app.route('/', methods=['GET'])
-    # def index():
+    @app.route('/', methods=['POST', 'GET'])
+    def index():
         
-       
-    #     return render_template('index.html')
+        if request.method == 'POST':
+            email = request.form.get('email')
+            password = request.form.get('password')
+            
+            return auth.ingresar(password, email)
+            
+        else:
+            return render_template('index.html')
     
     
     from .models import User
